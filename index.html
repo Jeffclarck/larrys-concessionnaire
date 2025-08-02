@@ -103,6 +103,7 @@
       transition: transform 0.3s ease;
       text-decoration: none;
       color: inherit;
+      position: relative;
     }
 
     .card:hover {
@@ -186,10 +187,24 @@
     <label>Recherche :
       <input type="text" id="searchInput" placeholder="Nom du véhicule" aria-label="Recherche par nom">
     </label>
+    <label>Carte grise :
+      <select id="griseSelect">
+        <option value="all">Toutes</option>
+        <option value="2/3">2/3</option>
+        <option value="3/3">3/3</option>
+      </select>
+    </label>
+    <label>Performance :
+      <select id="performanceSelect">
+        <option value="all">Toutes</option>
+        <option value="Origine">Origine</option>
+        <option value="Modifiée">Modifiée</option>
+      </select>
+    </label>
   </section>
 
   <main class="cards" id="cardsContainer">
-    <a href="vehicules/grotti-fxk.html" class="card" data-price="1150000" data-category="supersportive" data-name="Grotti FXK">
+    <a href="vehicules/grotti-fxk.html" class="card" data-price="1150000" data-category="supersportive" data-name="Grotti FXK" data-grise="2/3" data-performance="Origine">
       <img src="cars/Ferrari-FXXk-Photoroom.png" alt="Grotti FXK - Supersportive">
       <span class="badge">Supersportive</span>
       <div class="card-content">
@@ -198,7 +213,7 @@
         <div class="details">Carte grise: 2/3<br>Performance: Origine<br>Ajouté le 01/08/2025</div>
       </div>
     </a>
-    <a href="vehicules/pegasi-sinr.html" class="card" data-price="1100000" data-category="supersportive" data-name="Pegasi Sinr">
+    <a href="vehicules/pegasi-sinr.html" class="card" data-price="1100000" data-category="supersportive" data-name="Pegasi Sinr" data-grise="2/3" data-performance="Origine">
       <img src="cars/Lamborghini-Sian-Photoroom.png" alt="Pegasi Sinr - Supersportive">
       <span class="badge">Supersportive</span>
       <div class="card-content">
@@ -207,11 +222,11 @@
         <div class="details">Carte grise: 2/3<br>Performance: Origine<br>Ajouté le 19/06/2025</div>
       </div>
     </a>
-    <a href="vehicules/benefactor-expedition-e500.html" class="card" data-price="750000" data-category="4places" data-name="Benefactor Expedition E500">
-      <img src="cars/Mercedes-Benz-E500-Photoroom.png" alt="Benefactor Expedition E500 - 4 Places">
-      <span class="badge">4 Places</span>
+    <a href="vehicules/Benefactor AG One.html" class="card" data-price="750000" data-category="supersportive" data-name="Benefactor AG One" data-grise="2/3" data-performance="Origine">
+      <img src="cars/Mercedes-AMG-ONE-Photoroom.png" alt="Benefactor AG One - 2 Places">
+      <span class="badge">Supersportive</span>
       <div class="card-content">
-        <h3>Benefactor Expedition E500</h3>
+        <h3>Benefactor AG One</h3>
         <div class="price">750 000 €</div>
         <div class="details">Carte grise: 2/3<br>Performance: Origine<br>Ajouté le 26/07/2025</div>
       </div>
@@ -223,19 +238,30 @@
     const searchInput = document.getElementById('searchInput');
     const cardsContainer = document.getElementById('cardsContainer');
     const categoryButtons = document.querySelectorAll('#categoryNav button');
+    const griseSelect = document.getElementById('griseSelect');
+    const performanceSelect = document.getElementById('performanceSelect');
+
     let activeCategory = 'all';
 
     function filterAndSortCards() {
       const searchTerm = searchInput.value.toLowerCase();
       const order = sortSelect.value;
+      const selectedGrise = griseSelect.value;
+      const selectedPerf = performanceSelect.value;
       const cards = Array.from(cardsContainer.querySelectorAll('.card'));
 
       cards.forEach(card => {
         const name = card.dataset.name.toLowerCase();
         const category = card.dataset.category;
+        const grise = card.dataset.grise;
+        const perf = card.dataset.performance;
+
         const matchesCategory = (activeCategory === 'all' || category === activeCategory);
         const matchesSearch = name.includes(searchTerm);
-        card.style.display = (matchesCategory && matchesSearch) ? '' : 'none';
+        const matchesGrise = (selectedGrise === 'all' || grise === selectedGrise);
+        const matchesPerf = (selectedPerf === 'all' || perf === selectedPerf);
+
+        card.style.display = (matchesCategory && matchesSearch && matchesGrise && matchesPerf) ? '' : 'none';
       });
 
       const visibleCards = cards.filter(c => c.style.display !== 'none');
@@ -255,6 +281,8 @@
     });
 
     sortSelect.addEventListener('change', filterAndSortCards);
+    griseSelect.addEventListener('change', filterAndSortCards);
+    performanceSelect.addEventListener('change', filterAndSortCards);
 
     categoryButtons.forEach(btn => {
       btn.addEventListener('click', () => {
