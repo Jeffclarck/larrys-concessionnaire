@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head><meta charset="UTF-8"><title>Ajout Véhicule</title></head>
+<body><h1>Ajouter véhicule</h1>
+<form id="form"><input id="name" placeholder="Nom" required>
+<input id="category" placeholder="Catégorie"><input id="price" placeholder="Prix">
+<input id="image" placeholder="Image"><input id="carte_grise" placeholder="Carte grise">
+<input id="performance" placeholder="Performance"><input id="date" placeholder="Date">
+<button type="submit">Ajouter</button></form>
+<div id="status"></div>
+<script>
+form.addEventListener("submit", async e => {
+e.preventDefault();
+const v = {
+  name: name.value, category: category.value, price: price.value,
+  image: image.value, carte_grise: carte_grise.value,
+  performance: performance.value, date: date.value
+};
+const res = await fetch("/add", {
+  method: "POST", headers: { "Content-Type": "application/json" },
+  body: JSON.stringify(v)
+});
+const result = await res.json();
+status.textContent = result.message;
+});
+</script></body></html>
