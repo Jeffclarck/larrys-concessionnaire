@@ -1,0 +1,269 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="Larry's Concessionnaire - Véhicules de luxe, 4x4, motos et plus encore.">
+  <title>Larry's Concessionnaire</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #e63946;
+      --background: #1f1f1f;
+      --nav-bg: #2a2a2a;
+      --card-bg: #2e2e2e;
+      --text: #ffffff;
+      --muted: #ccc;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: var(--background);
+      color: var(--text);
+    }
+
+    header {
+      background: url('image-cache.jpg') no-repeat center center/cover;
+      text-align: center;
+      padding: 60px 20px;
+    }
+
+    header h1 {
+      font-size: 48px;
+      color: var(--primary);
+      margin: 0;
+    }
+
+    header p {
+      color: var(--muted);
+      font-size: 18px;
+    }
+
+    nav {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      background: var(--nav-bg);
+    }
+
+    nav button {
+      background: none;
+      border: none;
+      color: var(--text);
+      padding: 15px 20px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: all 0.2s ease;
+    }
+
+    nav button:hover,
+    nav button.active {
+      color: var(--primary);
+      border-bottom: 2px solid var(--primary);
+    }
+
+    .filters {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 15px;
+      background: var(--nav-bg);
+      padding: 15px;
+    }
+
+    .filters label {
+      font-size: 14px;
+    }
+
+    .filters select,
+    .filters input[type="text"] {
+      background: #333;
+      color: var(--text);
+      border: 1px solid #555;
+      padding: 6px 10px;
+      border-radius: 4px;
+    }
+
+    main.cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      padding: 20px;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: 6px;
+      overflow: hidden;
+      box-shadow: 0 0 10px rgba(143, 27, 27, 0.4);
+      transition: transform 0.3s ease;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+    }
+
+    .card img {
+      width: 100%;
+      display: block;
+    }
+
+    .badge {
+      position: absolute;
+      top: 0;
+      right: 0;
+      background: var(--primary);
+      padding: 6px 10px;
+      font-size: 12px;
+      border-radius: 0 0 0 5px;
+    }
+
+    .card-content {
+      padding: 15px;
+    }
+
+    .card-content h3 {
+      margin: 0 0 5px;
+      font-size: 18px;
+    }
+
+    .price {
+      color: var(--primary);
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .details {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    @media(max-width: 600px) {
+      nav button {
+        flex: 1 1 50%;
+      }
+
+      .filters {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .filters label {
+        width: 100%;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>LARRY'S</h1>
+    <p>Concessionnaire Larry's</p>
+  </header>
+
+  <nav id="categoryNav" aria-label="Navigation des catégories">
+    <button class="active" data-category="all">Tous</button>
+    <button data-category="2places">2 Places</button>
+    <button data-category="4places">4 Places</button>
+    <button data-category="4x4">4x4</button>
+    <button data-category="supersportive">Supersportive</button>
+    <button data-category="motos">Motos</button>
+  </nav>
+
+  <section class="filters" aria-label="Filtres de recherche">
+    <label>Tri :
+      <select id="sortSelect">
+        <option value="desc">Prix décroissant</option>
+        <option value="asc">Prix croissant</option>
+      </select>
+    </label>
+    <label>Recherche :
+      <input type="text" id="searchInput" placeholder="Nom du véhicule" aria-label="Recherche par nom">
+    </label>
+  </section>
+
+  <main class="cards" id="cardsContainer">
+    <a href="vehicules/grotti-fxk.html" class="card" data-price="1150000" data-category="supersportive" data-name="Grotti FXK">
+      <img src="cars/Ferrari-FXXk-Photoroom.png" alt="Grotti FXK - Supersportive">
+      <span class="badge">Supersportive</span>
+      <div class="card-content">
+        <h3>Grotti FXK</h3>
+        <div class="price">1 150 000 €</div>
+        <div class="details">Carte grise: 2/3<br>Performance: Origine<br>Ajouté le 01/08/2025</div>
+      </div>
+    </a>
+    <a href="vehicules/pegasi-sinr.html" class="card" data-price="1100000" data-category="supersportive" data-name="Pegasi Sinr">
+      <img src="cars/Lamborghini-Sian-Photoroom.png" alt="Pegasi Sinr - Supersportive">
+      <span class="badge">Supersportive</span>
+      <div class="card-content">
+        <h3>Pegasi Sinr</h3>
+        <div class="price">1 100 000 €</div>
+        <div class="details">Carte grise: 2/3<br>Performance: Origine<br>Ajouté le 19/06/2025</div>
+      </div>
+    </a>
+    <a href="vehicules/benefactor-expedition-e500.html" class="card" data-price="750000" data-category="4places" data-name="Benefactor Expedition E500">
+      <img src="cars/Mercedes-Benz-E500-Photoroom.png" alt="Benefactor Expedition E500 - 4 Places">
+      <span class="badge">4 Places</span>
+      <div class="card-content">
+        <h3>Benefactor Expedition E500</h3>
+        <div class="price">750 000 €</div>
+        <div class="details">Carte grise: 2/3<br>Performance: Origine<br>Ajouté le 26/07/2025</div>
+      </div>
+    </a>
+  </main>
+
+  <script>
+    const sortSelect = document.getElementById('sortSelect');
+    const searchInput = document.getElementById('searchInput');
+    const cardsContainer = document.getElementById('cardsContainer');
+    const categoryButtons = document.querySelectorAll('#categoryNav button');
+    let activeCategory = 'all';
+
+    function filterAndSortCards() {
+      const searchTerm = searchInput.value.toLowerCase();
+      const order = sortSelect.value;
+      const cards = Array.from(cardsContainer.querySelectorAll('.card'));
+
+      cards.forEach(card => {
+        const name = card.dataset.name.toLowerCase();
+        const category = card.dataset.category;
+        const matchesCategory = (activeCategory === 'all' || category === activeCategory);
+        const matchesSearch = name.includes(searchTerm);
+        card.style.display = (matchesCategory && matchesSearch) ? '' : 'none';
+      });
+
+      const visibleCards = cards.filter(c => c.style.display !== 'none');
+      visibleCards.sort((a, b) => {
+        return order === 'asc'
+          ? parseInt(a.dataset.price) - parseInt(b.dataset.price)
+          : parseInt(b.dataset.price) - parseInt(a.dataset.price);
+      });
+
+      visibleCards.forEach(card => cardsContainer.appendChild(card));
+    }
+
+    let searchTimeout;
+    searchInput.addEventListener('input', () => {
+      clearTimeout(searchTimeout);
+      searchTimeout = setTimeout(filterAndSortCards, 300);
+    });
+
+    sortSelect.addEventListener('change', filterAndSortCards);
+
+    categoryButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        categoryButtons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        activeCategory = btn.dataset.category;
+        filterAndSortCards();
+      });
+    });
+  </script>
+</body>
+</html>
